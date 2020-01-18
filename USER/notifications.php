@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>myVocab</title>
+	<title>Light Bootstrap Dashboard by Creative Tim</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -29,6 +29,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -40,8 +41,8 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    myVocab
+                <a href="#" class="simple-text">
+                    Creative Tim
                 </a>
             </div>
 
@@ -52,7 +53,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="user.php">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
@@ -82,7 +83,7 @@
                         <p>Maps</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="notifications.php">
                         <i class="pe-7s-bell"></i>
                         <p>Notifications</p>
@@ -98,40 +99,6 @@
     	</div>
     </div>
 
-
-
-    <?php
-   
-    session_start();
-    $username=  $_SESSION['usrname'];
-
-    define("DB_SERVER", "localhost");
-	define("DB_USER", "root");
-	define("DB_PASSWORD", "");
-	define("DB_DATABASE", "vocab");
-    $con = mysqli_connect(DB_SERVER , DB_USER, DB_PASSWORD, DB_DATABASE);
-    
-    $getinfoquery="SELECT* FROM all_users where username='".$username."';";
-    $result = mysqli_query($con,$getinfoquery);
-    $userData=array();
-    while($row = mysqli_fetch_array($result)) 
-    {
-        $userData['email']=$row['email'];
-        $userData['phone']=$row['phone'];
-        $userData['first_name']=$row['first_name'];
-        $userData['last_name']=$row['last_name'];
-        $userData['address']=$row['address'];
-        $userData['about']=$row['about'];
-        $userData['profile_pic']=$row['profile_pic'];
-
-    }
-	 
-
-    ?>
-
-
-
-
     <div class="main-panel">
 		<nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
@@ -142,7 +109,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User</a>
+                    <a class="navbar-brand" href="#">Notifications</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -203,7 +170,7 @@
                               </ul>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="#">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -216,126 +183,88 @@
 
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Edit Profile</h4>
-                            </div>
-                            <div class="content">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Company (disabled)</label>
-                                                <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" required placeholder="Username" <?php echo "value='".$username."'";?>>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" required placeholder="Email" <?php echo "value='".$userData['email']."'";?>>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Notifications</h4>
+                        <p class="category">Handcrafted by our friend <a target="_blank" href="https://github.com/mouse0270">Robert McIntosh</a>. Please checkout the <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation.</a></p>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" <?php echo "value='".$userData['first_name']."'";?>  >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" <?php echo "value='".$userData['last_name']."'";?> >
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" <?php echo "value='".$userData['address']."'";?>>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Mike">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="Andrew">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike"><?php echo $userData['about'];?></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
-
-                                      <h4 class="title" id="username">
-                                         <?php 
-                                                echo $username;
-                                            ?>
-                                      </h4>
-                                    </a>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Notifications Style</h5>
+                                <div class="alert alert-info">
+                                    <span>This is a plain notification</span>
                                 </div>
-                                <p class="description text-center"> 
-                                    <?php echo $userData['about']  ?>
-                                </p>
+                                <div class="alert alert-info">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span>This is a notification with close button.</span>
+                                </div>
+                                <div class="alert alert-info alert-with-icon" data-notify="container">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span data-notify="icon" class="pe-7s-bell"></span>
+                                    <span data-notify="message">This is a notification with close button and icon.</span>
+                                </div>
+                                <div class="alert alert-info alert-with-icon" data-notify="container">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span data-notify="icon" class="pe-7s-bell"></span>
+                                    <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
+                                </div>
                             </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-
+                            <div class="col-md-6">
+                                <h5>Notification states</h5>
+                                <div class="alert alert-info">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span><b> Info - </b> This is a regular notification made with ".alert-info"</span>
+                                </div>
+                                <div class="alert alert-success">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span><b> Success - </b> This is a regular notification made with ".alert-success"</span>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span><b> Warning - </b> This is a regular notification made with ".alert-warning"</span>
+                                </div>
+                                <div class="alert alert-danger">
+                                    <button type="button" aria-hidden="true" class="close">×</button>
+                                    <span><b> Danger - </b> This is a regular notification made with ".alert-danger"</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="places-buttons">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 text-center">
+                                    <h5>Notifications Places
+                                        <p class="category">Click to view notifications</p>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-3">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('top','left')">Top Left</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('top','center')">Top Center</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('top','right')">Top Right</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-md-offset-3">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('bottom','left')">Bottom Left</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('bottom','center')">Bottom Center</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-block" onclick="demo.showNotification('bottom','right')">Bottom Right</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -379,7 +308,7 @@
 
 </body>
 
-    <!--   Core JS Files   -->
+        <!--   Core JS Files   -->
     <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -399,9 +328,3 @@
 	<script src="assets/js/demo.js"></script>
 
 </html>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
- <script>
-      
-
- </script>

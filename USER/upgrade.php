@@ -5,7 +5,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>myVocab</title>
+	<title>Light Bootstrap Dashboard by Creative Tim</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -29,19 +29,24 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
 </head>
 <body>
 
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
 
-    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+    <!--
 
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
 
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    myVocab
+                    Creative Tim
                 </a>
             </div>
 
@@ -52,7 +57,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="active">
+                <li>
                     <a href="user.php">
                         <i class="pe-7s-user"></i>
                         <p>User Profile</p>
@@ -88,7 +93,7 @@
                         <p>Notifications</p>
                     </a>
                 </li>
-				<li class="active-pro">
+				<li class="active active-pro">
                     <a href="upgrade.php">
                         <i class="pe-7s-rocket"></i>
                         <p>Upgrade to PRO</p>
@@ -97,40 +102,6 @@
             </ul>
     	</div>
     </div>
-
-
-
-    <?php
-   
-    session_start();
-    $username=  $_SESSION['usrname'];
-
-    define("DB_SERVER", "localhost");
-	define("DB_USER", "root");
-	define("DB_PASSWORD", "");
-	define("DB_DATABASE", "vocab");
-    $con = mysqli_connect(DB_SERVER , DB_USER, DB_PASSWORD, DB_DATABASE);
-    
-    $getinfoquery="SELECT* FROM all_users where username='".$username."';";
-    $result = mysqli_query($con,$getinfoquery);
-    $userData=array();
-    while($row = mysqli_fetch_array($result)) 
-    {
-        $userData['email']=$row['email'];
-        $userData['phone']=$row['phone'];
-        $userData['first_name']=$row['first_name'];
-        $userData['last_name']=$row['last_name'];
-        $userData['address']=$row['address'];
-        $userData['about']=$row['about'];
-        $userData['profile_pic']=$row['profile_pic'];
-
-    }
-	 
-
-    ?>
-
-
-
 
     <div class="main-panel">
 		<nav class="navbar navbar-default navbar-fixed">
@@ -142,7 +113,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User</a>
+                    <a class="navbar-brand" href="#">Upgrade</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -203,7 +174,7 @@
                               </ul>
                         </li>
                         <li>
-                            <a href="../index.html">
+                            <a href="#">
                                 <p>Log out</p>
                             </a>
                         </li>
@@ -217,126 +188,78 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
+					<div class="col-md-8 col-md-offset-2">
                         <div class="card">
-                            <div class="header">
-                                <h4 class="title">Edit Profile</h4>
+                            <div class="header text-center">
+                                <h4 class="title">Light Bootstrap Dashboard PRO</h4>
+                                <p class="category">Are you looking for more components? Please check our Premium Version of Light Bootstrap Dashboard.</p>
+								<br>
                             </div>
-                            <div class="content">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Company (disabled)</label>
-                                                <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" required placeholder="Username" <?php echo "value='".$username."'";?>>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" required placeholder="Email" <?php echo "value='".$userData['email']."'";?>>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company" <?php echo "value='".$userData['first_name']."'";?>  >
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" <?php echo "value='".$userData['last_name']."'";?> >
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <input type="text" class="form-control" placeholder="Home Address" <?php echo "value='".$userData['address']."'";?>>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Mike">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country" value="Andrew">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label>About Me</label>
-                                                <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike"><?php echo $userData['about'];?></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card card-user">
-                            <div class="image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
-                            </div>
-                            <div class="content">
-                                <div class="author">
-                                     <a href="#">
-                                    <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
-
-                                      <h4 class="title" id="username">
-                                         <?php 
-                                                echo $username;
-                                            ?>
-                                      </h4>
-                                    </a>
-                                </div>
-                                <p class="description text-center"> 
-                                    <?php echo $userData['about']  ?>
-                                </p>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+                            <div class="content table-responsive table-full-width table-upgrade">
+                                <table class="table">
+                                    <thead>
+                                        <th></th>
+                                    	<th class="text-center">Free</th>
+                                    	<th class="text-center">PRO</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        	<td>Components</td>
+                                        	<td>16</td>
+                                        	<td>115+</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Plugins</td>
+                                        	<td>4</td>
+                                        	<td>14+</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Example Pages</td>
+                                        	<td>4</td>
+                                        	<td>22+</td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Documentation</td>
+                                        	<td><i class="fa fa-times text-danger"></i></td>
+                                        	<td><i class="fa fa-check text-success"></td>
+                                        </tr>
+                                        <tr>
+                                        	<td>SASS Files</td>
+											<td><i class="fa fa-times text-danger"></i></td>
+                                        	<td><i class="fa fa-check text-success"></td>
+                                        </tr>
+                                        <tr>
+                                        	<td>Login/Register/Lock Pages</td>
+											<td><i class="fa fa-times text-danger"></i></td>
+                                        	<td><i class="fa fa-check text-success"></td>
+                                        </tr>
+										<tr>
+                                        	<td>Premium Support</td>
+											<td><i class="fa fa-times text-danger"></i></td>
+                                        	<td><i class="fa fa-check text-success"></td>
+                                        </tr>
+										<tr>
+                                        	<td></td>
+											<td>Free</td>
+                                        	<td>Just $39</td>
+                                        </tr>
+										<tr>
+											<td></td>
+											<td>
+												<a href="#" class="btn btn-round btn-fill btn-default disabled">Current Version</a>
+											</td>
+											<td>
+												<a target="_blank" href="http://www.creative-tim.com/product/light-bootstrap-dashboard-pro/?ref=lbdupgrade" class="btn btn-round btn-fill btn-info">Upgrade to PRO</a>
+											</td>
+										</tr>
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 
@@ -399,9 +322,3 @@
 	<script src="assets/js/demo.js"></script>
 
 </html>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-
- <script>
-      
-
- </script>
