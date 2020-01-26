@@ -29,6 +29,41 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <style>
+    .active-pink-2 input[type=text]:focus:not([readonly]) {
+border-bottom: 1px solid #f48fb1;
+box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-pink input[type=text] {
+border-bottom: 1px solid #f48fb1;
+box-shadow: 0 1px 0 0 #f48fb1;
+}
+.active-purple-2 input[type=text]:focus:not([readonly]) {
+border-bottom: 1px solid #ce93d8;
+box-shadow: 0 1px 0 0 #ce93d8;
+}
+.active-purple input[type=text] {
+border-bottom: 1px solid #ce93d8;
+box-shadow: 0 1px 0 0 #ce93d8;
+}
+.active-cyan-2 input[type=text]:focus:not([readonly]) {
+border-bottom: 1px solid #4dd0e1;
+box-shadow: 0 1px 0 0 #4dd0e1;
+}
+.active-cyan input[type=text] {
+border-bottom: 1px solid #4dd0e1;
+box-shadow: 0 1px 0 0 #4dd0e1;
+}
+.active-cyan .fa, .active-cyan-2 .fa {
+color: #4dd0e1;
+}
+.active-purple .fa, .active-purple-2 .fa {
+color: #ce93d8;
+}
+.active-pink .fa, .active-pink-2 .fa {
+color: #f48fb1;
+}
+    </style>
 </head>
 <body>
 
@@ -184,82 +219,132 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" >
                             <div class="header">
-                                <h4 class="title">Light Bootstrap Table Heading</h4>
-                                <p class="category">Created using Roboto Font Family</p>
+                                <h3 class="title">Search a new word!</h3>
+                                
                             </div>
                             <div class="content">
 
-                                <div class="typo-line">
-                                    <h1><p class="category">Header 1</p>Light Bootstrap Table Heading </h1>
-                                </div>
+                                <!-- Search form -->
+                            <form class="form-inline md-form form-sm active-purple active-purple-2 mt-2" style="padding-top:30px;" method="POST">
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                                aria-label="Search" name="word">
+                            </form>
 
-                                    <div class="typo-line">
-                                    <h2><p class="category">Header 2</p>Light Bootstrap Table Heading</h2>
-                                </div>
-                                <div class="typo-line">
-                                    <h3><p class="category">Header 3</p>Light Bootstrap Table Heading</h3>
-                                </div>
-                                <div class="typo-line">
-                                    <h4><p class="category">Header 4</p>Light Bootstrap Table Heading</h4>
-                                </div>
-                                <div class="typo-line">
-                                    <h5><p class="category">Header 5</p>Light Bootstrap Table Heading</h5>
-                                </div>
-                                 <div class="typo-line">
-                                    <h6><p class="category">Header 6</p>Light Bootstrap Table Heading</h6>
-                                </div>
-                                <div class="typo-line">
-                                    <p><span class="category">Paragraph</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.</p>
-                                </div>
-                                <div class="typo-line">
-                                    <p class="category">Quote</p>
-                                    <blockquote>
-                                     <p>
-                                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam.
-                                     </p>
-                                     <small>
-                                     Steve Jobs, CEO Apple
-                                     </small>
-                                    </blockquote>
-                                </div>
+                            <!-- end search-->
+                           
+                            <?php
+    
+    function getElementsByClass(&$parentNode, $tagName, $className) {
+        $nodes=array();
+    
+        $childNodeList = $parentNode->getElementsByTagName($tagName);
+        for ($i = 0; $i < $childNodeList->length; $i++) {
+            $temp = $childNodeList->item($i);
+            if (stripos($temp->getAttribute('class'), $className) !== false) {
+                $nodes[]=$temp;
+            }
+        }
+    
+        return $nodes;
+    }
+    
+            if(isset($_POST['word']))
+            {
+                    $word=$_POST['word'];
+                    $word=strtolower($word);
+                    $doc = new DOMDocument();
+                    $link="https://www.oxfordlearnersdictionaries.com/definition/english/".$word."?q=".$word;
+                    $wtitle=$word."_h_1";
+                    $wdef1=$word."_sng_1";
+                    $wdef2=$word."_sng_2";
+                    libxml_use_internal_errors(true);
+    
+                    if(@file_get_contents($link) && $word!="")
+                    {
+                    $doc->loadHTMLFile($link);
+                    
+                    $h1 = $doc->getElementById($wtitle)->textContent;
+    
+                    $res= $doc->getElementById($wdef1);
+                    $res2=$doc->getElementById($wdef2);
+                    $wtype=getElementsByClass($doc,"span","pos");
+                    $defs=getElementsByClass($res,"span","def");
+                    $ex=getElementsByClass($res,"ul","examples");
+                    $examples=getElementsByClass($ex[0],"span","x");
+                    
+                    echo "<div class='typo-line'>
+                    <h1><p class='category'>word</p>".$h1."</h1>
+                </div>";
+    
+                    //wtype= noun, verb ....
+                    foreach($wtype as $w)
+                    {
+                        //echo "<p>(".$w->textContent.")</p>";
+                       echo "<div class='typo-line'>
+                       <h3><p class='category'>type</p>(".$w->textContent.")</h3>
+                   </div>" ;
+                    }
+                    
+                    foreach($defs as $d)
+                    {
+                       
+                        echo "<div class='typo-line'>
+                        <h4><p class='category'>Definition 1</p>".$d->textContent."</h4>
+                    </div>";
+                    }
+                if($res2)
+                    {
+                        $defs2=getElementsByClass($res2,"span","def");
+                         foreach($defs2 as $d)
+                        {
+                            echo "<div class='typo-line'>
+                            <h4><p class='category'>Definition 2</p>".$d->textContent."</h4>
+                        </div>";
+                        }
+    
+                    }
+                    $cnt=1;
+                    foreach($examples as $e)
+                    {
+                       
+                        echo "<div class='typo-line'>
+                        <p><span class='category'>example ".$cnt."</span></p>".$e->textContent." </div>";
+                         $cnt++;
+                    }
 
-                                <div class="typo-line">
-                                    <p class="category">Muted Text</p>
-                                    <p class="text-muted">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-                                    </p>
-                                </div>
-                                <div class="typo-line">
-                                    <!--
-                                     there are also "text-info", "text-success", "text-warning", "text-danger" clases for the text
-                                     -->
-                                    <p class="category">Coloured Text</p>
-                                    <p class="text-primary">
-                                        Text Primary - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-info">
-                                        Text Info - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-success">
-                                        Text Success - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-warning">
-                                        Text Warning - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                    <p class="text-danger">
-                                        Text Danger - Light Bootstrap Table Heading and complex bootstrap dashboard you've ever seen on the internet.
-                                    </p>
-                                </div>
 
-                                <div class="typo-line">
-                                    <h2><p class="category">Small Tag</p>Header with small subtitle <br><small>".small" is a tag for the headers</small> </h2>
-                                </div>
+                    echo "<button type='button' class='btn btn-outline-primary'>Add to vocabulary</button>";
+    
+            }
+    
+            else{
+                echo "<p>enter a valid word</p>";
+            }
+    
+    
+            }
+    
+    
+        
+    
+         
+       
+         
+        ?>
+       
+                           
+
+                            
 
 
-                            </div>
+
                         </div>
+                    </div>
+                            
+
                     </div>
 
                 </div>
@@ -322,6 +407,23 @@
 	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
+    <script src="assets/js/demo.js"></script>
+    
+    <script type="text/javascript">
+    	$(document).ready(function(){
+
+        	demo.initChartist();
+
+        	$.notify({
+            	icon: 'pe-7s-gift',
+            	message: "Welcome to <b>Vocab Builder</b> - a personalized web application to help you build your vocabulary. Search a new word now"
+
+            },{
+                type: 'info',
+                timer: 4000
+            });
+
+    	});
+	</script>
 
 </html>
